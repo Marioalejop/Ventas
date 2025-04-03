@@ -29,16 +29,16 @@
                         Datos del Cliente
                     </div>
                     <div class="card-body">
-                        <form id="ventaForm">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" id="documento" class="form-control" placeholder="Documento" required>
+                            </div>
                             <div class="mb-3">
                                 <input type="text" id="nombres" class="form-control" placeholder="Nombres" required>
                             </div>
                             <div class="mb-3">
                                 <input type="text" id="apellidos" class="form-control" placeholder="Apellidos" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" id="cedula" class="form-control" placeholder="Cédula" required>
-                            </div>
+                            </div>                        
                         </form>
                     </div>
                 </div>
@@ -51,7 +51,10 @@
                         Datos del Producto
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="productoForm">
+                            <div class="mb-3">
+                                <input type="text" id="factura" class="form-control" placeholder="No. Factura" required>
+                            </div>
                             <div class="mb-3">
                                 <input type="text" id="codigo" class="form-control" placeholder="Código" required>
                             </div>
@@ -71,17 +74,16 @@
         </div>
 
         <!-- Botones -->
-        <div>
+        <center><div>
             <button class="btn btn-primary" type="button" onclick="agregarRegistro()">Agregar Registro</button>
             <button class="btn btn-warning" onclick="window.location.href='totalFactura.html'">Ver Factura</button>
             <button class="btn btn-secondary" onclick="window.location.href='index.html'">Regresar al Menú</button>
-            <button class="btn btn-info" onclick="crearNuevaFactura()">Nueva Factura</button>            
-        </div>
+        </div></center>
     </div>
 
     <script src="script.js"></script>
 
-    <<footer class="bg-dark text-white text-center py-4 mt-5">
+    <footer class="bg-dark text-white text-center py-4 mt-5">
         <p>Carrera 7 #38-25</p>
         <a class="text-warning" href="https://universitariadecolombia.edu.co/"
             target="_blank">www.universitariadecolombia.edu.co</a>
