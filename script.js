@@ -71,10 +71,20 @@ function agregarRegistro() {
         return;
     }
 
-    if (isNaN(cantidad) || cantidad <= 0) {
-        Swal.fire('¡Error!', 'Cantidad debe ser un número positivo.', 'error');
+    if (!documento || !nombres || !apellidos || !codigo || !descripcion || !cantidad || !valor) {
+        Swal.fire('¡Error!', 'Por favor, complete todos los campos.', 'error');
         return;
     }
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Cantidad inválida',
+            text: 'La cantidad debe ser un número entero mayor que cero.'
+        });
+        return;
+    }
+
 
     const venta = {
         documento,

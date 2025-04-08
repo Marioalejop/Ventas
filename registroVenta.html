@@ -15,7 +15,7 @@
             <a class="navbar-brand" href="index.html">Sistema de Facturación</a>
         </div>
     </nav>
-  
+
     <div class="container mt-5 pt-4">
         <h2 class="text-center mt-4">Registro de Venta</h2>
         <div class="row">
@@ -40,10 +40,12 @@
                         <div class="mb-3">
                             <label for="factura" class="form-label">Factura N°</label>
                             <input type="text" class="form-control" id="factura" readonly>
-                          </div>
-                        <input type="text" id="codigo" class="form-control mb-2" placeholder="Código" oninput="cargarProducto()">
-                        <input type="text" id="descripcion" class="form-control mb-2" placeholder="Descripción" readonly>
-                        <input type="number" id="cantidad" class="form-control mb-2" placeholder="Cantidad">
+                        </div>
+                        <input type="text" id="codigo" class="form-control mb-2" placeholder="Código"
+                            oninput="cargarProducto()">
+                        <input type="text" id="descripcion" class="form-control mb-2" placeholder="Descripción"
+                            readonly>
+                            <input type="number" id="cantidad" class="form-control mb-2" placeholder="Cantidad" min="1" step="1">
                         <input type="number" id="valor" class="form-control mb-2" placeholder="Valor Unitario" readonly>
                     </div>
                 </div>
@@ -71,56 +73,62 @@
                     <th>Valor Unitario</th>
                 </tr>
             </thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Valor Unitario</th>
+            </tr>
+            </thead>
             <tbody>
                 <tr>
                     <td>P001</td>
-                    <td>Mouse Inalámbrico</td>
-                    <td>$35,000</td>
+                    <td>Laptop HP 14”</td>
+                    <td>$ 2.500.000</td>
                 </tr>
                 <tr>
                     <td>P002</td>
-                    <td>Teclado Mecánico</td>
-                    <td>$120,000</td>
+                    <td>Mouse Inalámbrico Logitech</td>
+                    <td>$ 90.000</td>
                 </tr>
                 <tr>
                     <td>P003</td>
-                    <td>Pantalla LED 24"</td>
-                    <td>$450,000</td>
+                    <td>Teclado Mecánico Redragon</td>
+                    <td>$ 180.000</td>
                 </tr>
                 <tr>
                     <td>P004</td>
-                    <td>Memoria USB 32GB</td>
-                    <td>$25,000</td>
+                    <td>Monitor LG 24”</td>
+                    <td>$ 720.000</td>
                 </tr>
                 <tr>
                     <td>P005</td>
-                    <td>Disco Duro Externo 1TB</td>
-                    <td>$220,000</td>
+                    <td>Impresora Epson EcoTank</td>
+                    <td>$ 590.000</td>
                 </tr>
                 <tr>
                     <td>P006</td>
-                    <td>Auriculares Bluetooth</td>
-                    <td>$95,000</td>
+                    <td>Tablet Samsung A8</td>
+                    <td>$ 880.000</td>
                 </tr>
                 <tr>
                     <td>P007</td>
-                    <td>Webcam HD</td>
-                    <td>$60,000</td>
+                    <td>Disco SSD 500GB</td>
+                    <td>$ 250.000</td>
                 </tr>
                 <tr>
                     <td>P008</td>
-                    <td>Impresora Multifuncional</td>
-                    <td>$400,000</td>
+                    <td>Memoria RAM 8GB DDR4</td>
+                    <td>$ 180.000</td>
                 </tr>
                 <tr>
                     <td>P009</td>
-                    <td>Router Wi-Fi</td>
-                    <td>$130,000</td>
+                    <td>Cable HDMI 2m</td>
+                    <td>$ 35.000</td>
                 </tr>
                 <tr>
                     <td>P010</td>
-                    <td>Tarjeta de Video</td>
-                    <td>$980,000</td>
+                    <td>Cámara Web Full HD</td>
+                    <td>$ 120.000</td>
                 </tr>
             </tbody>
         </table>
