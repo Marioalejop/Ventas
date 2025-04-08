@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sistema de Facturación</a>
+            <a class="navbar-brand" href="index.html">Sistema de Facturación</a>
         </div>
     </nav>
     <div class="container text-center mt-5">
@@ -21,14 +21,82 @@
         <h1 class="mt-5">¡BIENVENIDOS!</h1>
         <br>
         <h2 class="mt-5">Menú de Facturación</h2>
-        <br><br>
-
-
+        
         <button class="btn btn-primary" onclick="window.location.href='registroVenta.html'">Nueva Factura</button>
-        <br><br>
-        <button class="btn btn-secondary" onclick="window.location.href='registroVenta.html'">Registro de Venta</button>
-        <br><br>
-        <button class="btn btn-success" onclick="window.location.href='totalFactura.html'">Total Factura</button>
+       
+        <button class="btn btn-warning" onclick="window.location.href='totalFactura.html'">Ver Factura</button>
+       
+        <button class="btn btn-secondary" onclick="window.location.href='historialFacturas.html'">Historial de Facturas</button>
+
+        <!-- Tabla de productos disponibles -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                Productos Disponibles
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Valor Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Camisa</td>
+                            <td>$ 35.000</td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Pantalón</td>
+                            <td>$ 70.000</td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Zapatos</td>
+                            <td>$ 120.000</td>
+                        </tr>
+                        <tr>
+                            <td>004</td>
+                            <td>Chaqueta</td>
+                            <td>$ 90.000</td>
+                        </tr>
+                        <tr>
+                            <td>005</td>
+                            <td>Gorra</td>
+                            <td>$ 25.000</td>
+                        </tr>
+                        <tr>
+                            <td>006</td>
+                            <td>Medias</td>
+                            <td>$ 8.000</td>
+                        </tr>
+                        <tr>
+                            <td>007</td>
+                            <td>Cinturón</td>
+                            <td>$ 20.000</td>
+                        </tr>
+                        <tr>
+                            <td>008</td>
+                            <td>Bufanda</td>
+                            <td>$ 30.000</td>
+                        </tr>
+                        <tr>
+                            <td>009</td>
+                            <td>Guantes</td>
+                            <td>$ 15.000</td>
+                        </tr>
+                        <tr>
+                            <td>010</td>
+                            <td>Sudadera</td>
+                            <td>$ 85.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
@@ -38,9 +106,10 @@
         <a class="text-warning" href="https://universitariadecolombia.edu.co/"
             target="_blank">www.universitariadecolombia.edu.co</a>
         <br>
-        <div><img src="static/imagenes/Logo_universitaria.png" width="10%" alt="static/imagenes/Logo_universitaria.png"
-                aling="center"></div>
-        </footer>
+        <div class="text-center">
+            <img src="static/imagenes/Logo_universitaria.png" width="10%" alt="Logo Universitaria de Colombia">
+        </div>
+    </footer>
 
 </body>
 

@@ -4,12 +4,28 @@ body {
     background-color: #f8f9fa;
     transition: background-color 0.3s, color 0.3s;
 }
+
 button {
     margin: 10px;
     padding: 10px;
     border: none;
     cursor: pointer;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+td, th {
+    padding: 10px;
+    text-align: left;
+}
+
 .dark-mode {
     background-color: #343a40;
     color: white;

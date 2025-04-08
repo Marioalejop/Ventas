@@ -1,101 +1,196 @@
-// Guardar los registros de ventas en localStorage
-function agregarRegistro() {
-    let documento = document.getElementById('documento').value;
-    let nombre = document.getElementById('nombres').value;
-    let apellido = document.getElementById('apellidos').value;
-    let factura = document.getElementById('factura').value;
-    let codigo = document.getElementById('codigo').value;
-    let descripcion = document.getElementById('descripcion').value;
-    let cantidad = document.getElementById('cantidad').value;
-    let valor = document.getElementById('valor').value;
+// Productos disponibles
+const productos = [
+    { codigo: "P001", descripcion: "Laptop HP 14”", valor: 2500000 },
+    { codigo: "P002", descripcion: "Mouse Inalámbrico Logitech", valor: 90000 },
+    { codigo: "P003", descripcion: "Teclado Mecánico Redragon", valor: 180000 },
+    { codigo: "P004", descripcion: "Monitor LG 24”", valor: 720000 },
+    { codigo: "P005", descripcion: "Impresora Epson EcoTank", valor: 590000 },
+    { codigo: "P006", descripcion: "Tablet Samsung A8", valor: 880000 },
+    { codigo: "P007", descripcion: "Disco SSD 500GB", valor: 250000 },
+    { codigo: "P008", descripcion: "Memoria RAM 8GB DDR4", valor: 180000 },
+    { codigo: "P009", descripcion: "Cable HDMI 2m", valor: 35000 },
+    { codigo: "P010", descripcion: "Cámara Web Full HD", valor: 120000 }
+];
 
-    if (!documento || !nombre || !apellido || !factura || !codigo || !descripcion || !cantidad || !valor) {
+
+let facturaActual = localStorage.getItem('facturaActual')
+    ? parseInt(localStorage.getItem('facturaActual'))
+    : 1;
+
+// Cargar número de factura automáticamente
+document.addEventListener('DOMContentLoaded', function () {
+    // Autocompletar producto
+    const codigoInput = document.getElementById('codigo');
+    if (codigoInput) {
+        codigoInput.addEventListener('input', function () {
+            const codigo = codigoInput.value.trim().toUpperCase();
+            const producto = productos.find(p => p.codigo === codigo);
+            if (producto) {
+                document.getElementById('descripcion').value = producto.descripcion;
+                document.getElementById('valor').value = producto.valor;
+            } else {
+                document.getElementById('descripcion').value = '';
+                document.getElementById('valor').value = '';
+            }
+        });
+    }
+
+    // Cargar número de factura en el campo
+    const inputFactura = document.getElementById('factura');
+    if (inputFactura) {
+        inputFactura.value = facturaActual;
+    }
+});
+
+
+
+function cargarProducto() {
+    const codigo = document.getElementById('codigo').value;
+    const producto = productosBase[codigo];
+    if (producto) {
+        document.getElementById('descripcion').value = producto.descripcion;
+        document.getElementById('valor').value = producto.valor;
+    } else {
+        document.getElementById('descripcion').value = '';
+        document.getElementById('valor').value = '';
+    }
+}
+
+function agregarRegistro() {
+    const documento = document.getElementById('documento').value;
+    const nombres = document.getElementById('nombres').value;
+    const apellidos = document.getElementById('apellidos').value;
+    const factura = document.getElementById('factura').value;
+    const codigo = document.getElementById('codigo').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const cantidad = parseInt(document.getElementById('cantidad').value);
+    const valor = parseFloat(document.getElementById('valor').value);
+
+    if (!documento || !nombres || !apellidos || !codigo || !descripcion || !cantidad || !valor) {
         Swal.fire('¡Error!', 'Por favor, complete todos los campos.', 'error');
         return;
     }
 
-    // Calcular el IVA y el subtotal
-    let iva = (valor * cantidad) * 0.19;
-    let subtotal = (valor * cantidad) + iva;
+    if (isNaN(cantidad) || cantidad <= 0) {
+        Swal.fire('¡Error!', 'Cantidad debe ser un número positivo.', 'error');
+        return;
+    }
 
-    let venta = {
-        nombre: nombre,
-        apellido: apellido,
-        factura: factura,
-        documento: documento,
-        codigo: codigo,
-        descripcion: descripcion,
-        cantidad: cantidad,
-        valor: valor,
-        iva: iva,
-        subtotal: subtotal
+    const venta = {
+        documento,
+        nombres,
+        apellidos,
+        factura,
+        codigo,
+        descripcion,
+        cantidad,
+        valor,
+        iva: (valor * cantidad) * 0.19,
+        subtotal: (valor * cantidad) * 1.19,
+        fecha: new Date().toLocaleDateString('es-CO')
     };
 
-    // Verificar si ya existe un registro de ventas en localStorage
-    let ventas = JSON.parse(localStorage.getItem('ventas')) || [];
+    // Guardar cliente
+    localStorage.setItem('clienteActual', JSON.stringify({ documento, nombres, apellidos }));
+
+    // Guardar producto en la factura
+    const clave = `ventas_factura_${factura}`;
+    const ventas = JSON.parse(localStorage.getItem(clave)) || [];
     ventas.push(venta);
+    localStorage.setItem(clave, JSON.stringify(ventas));
 
-    // Guardar los datos en localStorage
-    localStorage.setItem('ventas', JSON.stringify(ventas));
+    Swal.fire('Producto agregado', '¿Desea continuar agregando productos?', 'success');
 
-    // Limpiar el formulario
-    document.getElementById('productoForm').reset();
-    Swal.fire('¡Éxito!', 'Registro agregado con éxito.', 'success');
-
+    ['codigo', 'descripcion', 'cantidad', 'valor'].forEach(id => document.getElementById(id).value = '');
 }
 
-// Mostrar los datos de la factura
 function mostrarFactura() {
-    let ventas = JSON.parse(localStorage.getItem('ventas')) || [];
-    let cliente = ventas[ventas.length - 1];
+    const factura = facturaActual;
+    const ventas = JSON.parse(localStorage.getItem(`ventas_factura_${factura}`)) || [];
+    const cliente = JSON.parse(localStorage.getItem('clienteActual')) || {};
 
-    // Mostrar los datos del cliente
-    document.getElementById('clienteDatos').innerHTML = `
-        <p><strong>Nombre:</strong> ${cliente.nombre}</p>
-        <p><strong>Apellido:</strong> ${cliente.apellido}</p>
-        <p><strong>Documento:</strong> ${cliente.documento}</p>
-    `;
-
-    // Mostrar los productos vendidos en la tabla
-    let tablaProductos = document.getElementById('tablaProductos');
-    ventas.forEach(venta => {
-        console.log(venta.factura);
-        let row = tablaProductos.insertRow();
-        row.insertCell(0).textContent = venta.factura;
-        row.insertCell(1).textContent = venta.codigo;
-        row.insertCell(2).textContent = venta.descripcion;
-        row.insertCell(3).textContent = venta.cantidad;
-        row.insertCell(4).textContent = `$${venta.valor}`;
-        row.insertCell(5).textContent = `$${venta.iva}`;
-        row.insertCell(6).textContent = `$${venta.subtotal}`;
+    let tabla = '';
+    let total = 0;
+    ventas.forEach(v => {
+        tabla += `
+        <tr>
+          <td>${v.fecha}</td>
+          <td>${v.codigo}</td>
+          <td>${v.descripcion}</td>
+          <td>${v.cantidad}</td>
+          <td>${formatearMoneda(v.valor)}</td>
+          <td>${formatearMoneda(v.iva)}</td>
+          <td>${formatearMoneda(v.subtotal)}</td>
+        </tr>
+      `;
+        total += v.subtotal;
     });
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname.includes('totalFactura.html')) {
-        mostrarFactura();
+    document.getElementById('tablaProductos').innerHTML = tabla;
+    document.getElementById('totalFactura').textContent = formatearMoneda(total);
+
+    if (cliente.documento) {
+        document.getElementById('datosCliente').innerHTML = `
+        <strong>Cliente:</strong> ${cliente.nombres} ${cliente.apellidos} - <strong>Documento:</strong> ${cliente.documento}
+      `;
     }
-});
+}
 
 function finalizarFactura() {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¿Deseas finalizar la factura?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, finalizar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            console.log("Eliminando datos de localStorage..."); // Verifica si entra en el bloque de confirmación
-            localStorage.removeItem('ventas');
-            Swal.fire('¡Factura Finalizada!', 'Los datos de la factura han sido eliminados.', 'success');
-            setTimeout(() => {
-                console.log("Redirigiendo al menú principal..."); // Verifica si se ejecuta la redirección
-                window.location.href = 'index.html';
-            }, 2000);
-        }
+    const clave = `ventas_factura_${facturaActual}`;
+    const ventas = JSON.parse(localStorage.getItem(clave));
+    const cliente = JSON.parse(localStorage.getItem('clienteActual'));
+
+    if (!ventas || ventas.length === 0) {
+        Swal.fire('Factura vacía', 'Agregue productos antes de finalizar.', 'warning');
+        return;
+    }
+
+    const total = ventas.reduce((sum, v) => sum + v.subtotal, 0);
+    const resumen = { factura: facturaActual, cliente, total };
+
+    const historial = JSON.parse(localStorage.getItem('historialFacturas')) || [];
+    historial.push(resumen);
+    localStorage.setItem('historialFacturas', JSON.stringify(historial));
+
+    Swal.fire('Factura finalizada', `Factura #${facturaActual} registrada.`, 'success');
+
+    localStorage.removeItem(clave);
+    localStorage.removeItem('clienteActual');
+    facturaActual++;
+    localStorage.setItem('facturaActual', facturaActual);
+
+    setTimeout(() => window.location.href = 'index.html', 1500);
+}
+
+function mostrarHistorial() {
+    const historial = JSON.parse(localStorage.getItem('historialFacturas')) || [];
+    let html = `
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th># Factura</th>
+            <th>Cliente</th>
+            <th>Documento</th>
+            <th>Total Pagado</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    historial.forEach(f => {
+        html += `
+        <tr>
+          <td>${f.factura}</td>
+          <td>${f.cliente.nombres} ${f.cliente.apellidos}</td>
+          <td>${f.cliente.documento}</td>
+          <td>${formatearMoneda(f.total)}</td>
+        </tr>
+      `;
     });
+    html += '</tbody></table>';
+    document.getElementById('historialFacturas').innerHTML = html;
+}
+
+function formatearMoneda(valor) {
+    return valor.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 }
