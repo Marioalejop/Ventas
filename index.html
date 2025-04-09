@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos con jQuery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        h2 {
+            color: #0074D9;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px;
+            margin: 5px auto;
+            background-color: #e9ecef;
+            width: 200px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul li:hover {
+            background-color: #ced4da;
+        }
+
+        video {
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 2px solid #0074D9;
+        }
+    </style>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Eventos con jQuery</h1>
+    <h2 id="titulo">¡QUÍTAME DE AQUÍ!</h2>
+
+    <!-- Botones -->
+    <button id="btnOcultar">Ocultar Título</button>
+    <button id="btnSaludo">Haz clic para saludar</button>
+
+    <!-- Lista con eventos -->
+    <h3>Selecciona una opción:</h3>
+    <ul>
+        <li class="opcion">Opción 1</li>
+        <li class="opcion">Opción 2</li>
+        <li class="opcion">Opción 3</li>
+    </ul>
+
+    <!-- Video -->
+     
+    <h3>Video de ejemplo</h3>
+    <video width="500" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+    </video>
+
+    <!-- Script jQuery -->
+    <script>
+        $(document).ready(function () {
+            // Evento botón para ocultar h2
+            $("#btnOcultar").click(function () {
+                $("#titulo").fadeOut();
+            });
+
+            // Evento botón saludo
+            $("#btnSaludo").click(function () {
+                alert("¡Hola! Has hecho clic en el botón.");
+            });
+
+            // Evento en elementos de la lista
+            $(".opcion").click(function () {
+                let texto = $(this).text();
+                alert("Seleccionaste: " + texto);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
